@@ -1,0 +1,28 @@
+{
+  "name": "nicuai",
+  "version": "1.0.0",
+  "description": "Nicu AI – primul AI românesc, fără vrăjeală",
+  "main": "server.js",
+  "scripts": {
+    "start": "node --env-file-if-exists=.env server.js",
+    "dev": "node --watch --env-file-if-exists=.env server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/monescuteodor/NicuAI.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/monescuteodor/NicuAI/issues"
+  },
+  "homepage": "https://github.com/monescuteodor/NicuAI#readme",
+  "dependencies": {
+    "express": "^5.3.0",
+    "groq-sdk": "^1.6.0"
+  },
+  "type": "module",
+  "engines": {
+    "node": ">=22.9"
+  }
+}
