@@ -12,7 +12,7 @@ Nicu rulează pe un calculator din casă. Telefoanele și laptopurile conectate 
 
 - **Node.js** 22.9 sau mai nou: descarci varianta „LTS” de pe https://nodejs.org și o instalezi.
 - **Git**: de pe https://git-scm.com (pe macOS e deja instalat sau ți-l cere singur).
-- **O cheie API**: îți faci cont pe https://console.anthropic.com, adaugi credit și creezi o cheie la „API Keys”. Arată ca `sk-ant-...`.
+- **O cheie Groq** (gratuită): îți faci cont pe https://console.groq.com, intri la „API Keys” și apeși „Create API Key”. Arată ca `gsk_...`. Copiaz-o imediat, că nu ți-o mai arată a doua oară.
 
 ### 2. Descarci proiectul
 
@@ -40,7 +40,7 @@ cp .env.example .env
 Deschizi `.env` cu orice editor de text (Notepad, TextEdit) și pui cheia după egal:
 
 ```
-ANTHROPIC_API_KEY=sk-ant-cheia-ta
+GROQ_API_KEY=gsk_cheia-ta
 ```
 
 Cheia stă doar pe calculatorul tău. Cei care intră din rețea nu o văd.
@@ -79,14 +79,14 @@ Ca să-l oprești, apeși `Ctrl+C` în terminal. Data viitoare pornești doar cu
 | `server.js` | Serverul Express. Ține conversațiile în memorie și trimite răspunsul către browser pe măsură ce e generat. |
 | `public/` | Interfața de chat. |
 
-Creierul lui Nicu e un model Claude, apelat prin API. Personajul e definit în întregime în `src/nicu.js`, deci poți schimba modelul din spate fără să-l pierzi pe Nicu.
+Creierul lui Nicu e un model open-source care rulează pe serverele [Groq](https://groq.com), apelat prin API. Groq are un plan gratuit, cu o limită de mesaje pe minut și pe zi. Dacă ți se termină, Nicu zice că „e coadă mare” și merge din nou după un timp. Personajul e definit în întregime în `src/nicu.js`, deci poți schimba modelul din spate fără să-l pierzi pe Nicu.
 
 Variabile opționale în `.env`:
 
 - `PORT`: portul serverului (implicit 3000)
 - `HOST`: `0.0.0.0` îl face accesibil din rețeaua locală (implicit); `127.0.0.1` îl lasă doar pe calculatorul tău
-- `NICU_MODEL`: modelul folosit (implicit `claude-opus-5-5`)
-- `NICU_EFFORT`: cât „gândește” înainte să răspundă: `low`, `medium` sau `high` (implicit `low`, că Nicu nu stă pe gânduri)
+- `NICU_MODEL`: modelul de pe Groq (implicit `openai/gpt-oss-120b`). Lista completă e la https://console.groq.com/docs/models. Alte variante bune de încercat: `moonshotai/kimi-k2-instruct`, `llama-3.3-70b-versatile`.
+- `NICU_REASONING`: cât „gândește” înainte să răspundă, doar pentru modelele `gpt-oss`: `low`, `medium` sau `high` (implicit `low`, că Nicu nu stă pe gânduri)
 
 ## Limite
 
