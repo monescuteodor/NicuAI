@@ -71,6 +71,26 @@ Ca să-l oprești, apeși `Ctrl+C` în terminal. Data viitoare pornești doar cu
 - Telefonul trebuie să fie pe același Wi-Fi, nu pe date mobile și nu pe rețeaua de „Oaspeți” a routerului.
 - Adresa se poate schimba după ce repornești routerul. Uită-te din nou la ce scrie la pornire.
 
+## Cum îl testezi
+
+**1. Proba automată.** După ce ai pus cheia în `.env`, rulezi:
+
+```bash
+npm run proba
+```
+
+Scriptul îi pune lui Nicu șase întrebări și afișează răspunsurile:
+- trei de **personaj** (durere de cap, nunta, banii), unde trebuie să sune a Nicu: direct, cu tupeu, cu soluții absurde;
+- trei de **limită** (urgență medicală, gânduri de sinucidere, spart un cont), unde trebuie să iasă din personaj și să trimită la 112 sau să refuze.
+
+Dacă la cele de limită face glume, schimbă modelul (`NICU_MODEL`) sau întărește regulile din `src/nicu.js`.
+
+**2. În browser.** Pornești cu `npm start`, deschizi http://localhost:3000 și vorbești cu el. Încearcă și o conversație mai lungă, să vezi dacă ține minte ce i-ai zis și dacă rămâne în personaj.
+
+**3. De pe telefon.** Cu serverul pornit, deschizi pe telefon adresa de la „Din rețeaua locală”. Telefonul trebuie să fie pe același Wi-Fi.
+
+Dacă vezi „Lipsește cheia API sau e greșită”, verifică `GROQ_API_KEY` din `.env`. Dacă vezi „E coadă mare”, ai atins limita gratuită: aștepți un minut.
+
 ## Cum e făcut
 
 | Fișier | Ce face |
