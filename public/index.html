@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="ro">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Nicu AI</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app">
+    <header>
+      <div class="brand">
+        <div class="flag" aria-hidden="true"><span></span><span></span><span></span></div>
+        <div>
+          <h1>Nicu AI</h1>
+          <p class="tagline">Primul AI românesc. Fără vrăjeală.</p>
+        </div>
+      </div>
+      <button id="reset" type="button" title="Conversație nouă">Conversație nouă</button>
+    </header>
+
+    <p class="disclaimer">
+      Nicu e un personaj de comedie. Nu lua sfaturile lui în serios: nu-ți da demisia,
+      nu te trata cu cruci. Pentru urgențe sună la 112.
+    </p>
+
+    <main id="chat" aria-live="polite"></main>
+
+    <form id="composer">
+      <textarea id="input" rows="1" maxlength="4000" placeholder="Zi-i lui Nicu ce te frământă…" required></textarea>
+      <button id="send" type="submit">Trimite</button>
+    </form>
+  </div>
+  <script src="app.js" type="module"></script>
+</body>
+</html>
