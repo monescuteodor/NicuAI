@@ -1,4 +1,5 @@
 import { randomUUID } from "node:crypto";
+import os from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import Anthropic from "@anthropic-ai/sdk";
@@ -6,6 +7,8 @@ import express from "express";
 import { GREETING, SYSTEM_PROMPT } from "./src/nicu.js";
 
 const PORT = Number(process.env.PORT ?? 3000);
+// 0.0.0.0 = accesibil din toată rețeaua locală. Pune HOST=127.0.0.1 ca să fie doar pe calculatorul tău.
+const HOST = process.env.HOST ?? "0.0.0.0";
 const MODEL = process.env.NICU_MODEL ?? "claude-opus-5-5";
 const EFFORT = process.env.NICU_EFFORT ?? "low";
 const MAX_MESSAGE_CHARS = 4000;
@@ -117,6 +120,22 @@ app.post("/api/reset", (req, res) => {
   res.json({ ok: true });
 });
 
-app.listen(PORT, () => {
-  console.log(`Nicu AI ascultă pe http://localhost:${PORT}`);
+function lanAddresses() {
+  return Object.values(os.networkInterfaces())
+    .flat()
+    .filter((net) => net && net.family === "IPv4" && !net.internal)
+    .map((net) => net.address);
+}
+
+app.listen(PORT, HOST, () => {
+  console.log("Nicu AI a pornit.");
+  console.log(`  Pe calculatorul ăsta:  http://localhost:${PORT}`);
+  if (HOST === "0.0.0.0") {
+    for (const address of lanAddresses()) {
+      console.log(`  Din rețeaua locală:    http://${address}:${PORT}`);
+    }
+  }
+  if (!process.env.ANTHROPIC_API_KEY) {
+    console.log("\n  Atenție: lipsește ANTHROPIC_API_KEY din .env, Nicu nu va putea răspunde.");
+  }
 });
